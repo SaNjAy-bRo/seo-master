@@ -47,13 +47,13 @@ export default function Hero() {
                             </h1>
                         </div>
                         <div ref={desc.ref} className={`reveal reveal-up ${desc.isVisible ? "visible" : ""}`}>
-                            <p style={{ fontSize: "1.125rem", color: "var(--color-body-dark)", lineHeight: 1.8, marginBottom: "2.5rem", maxWidth: 520 }}>
+                            <p style={{ fontSize: "clamp(0.95rem, 2.5vw, 1.125rem)", color: "var(--color-body-dark)", lineHeight: 1.8, marginBottom: "2rem", maxWidth: 520 }}>
                                 Drive more traffic, generate leads, and grow your business with our
                                 result-driven SEO, social media optimization, and paid advertising
                                 strategies. Tailored solutions to help your brand stand out online.
                             </p>
                         </div>
-                        <div ref={btns.ref} className={`reveal reveal-up ${btns.isVisible ? "visible" : ""}`} style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                        <div ref={btns.ref} className={`reveal reveal-up hero-btns ${btns.isVisible ? "visible" : ""}`} style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
                             <a href="#contact" className="btn-primary">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -69,7 +69,7 @@ export default function Hero() {
                         </div>
 
                         {/* Trust Badges */}
-                        <div ref={stats.ref} className={`reveal reveal-up ${stats.isVisible ? "visible" : ""}`} style={{ display: "flex", gap: "2.5rem", marginTop: "3.5rem", paddingTop: "2rem", borderTop: "1px solid var(--color-border-dark)" }}>
+                        <div ref={stats.ref} className={`reveal reveal-up hero-stats ${stats.isVisible ? "visible" : ""}`} style={{ display: "flex", gap: "2.5rem", marginTop: "3.5rem", paddingTop: "2rem", borderTop: "1px solid var(--color-border-dark)", flexWrap: "wrap" }}>
                             {[
                                 { value: "150+", label: "Projects Delivered" },
                                 { value: "98%", label: "Client Retention" },
@@ -128,9 +128,10 @@ export default function Hero() {
 
             <style jsx>{`
         @media (max-width: 768px) {
-          .hero-grid { grid-template-columns: 1fr !important; text-align: center; }
+          .hero-grid { grid-template-columns: 1fr !important; text-align: center; gap: 2rem !important; }
           .hero-visual { display: none !important; }
-          .hero-stats { justify-content: center; }
+          .hero-btns { justify-content: center; }
+          .hero-stats { justify-content: center; gap: 1.5rem !important; }
         }
       `}</style>
         </section>

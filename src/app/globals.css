@@ -69,6 +69,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -326,6 +327,23 @@ h6 {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+}
+
+/* ── Mobile: softer reveals, no horizontal slides ── */
+@media (max-width: 768px) {
+
+  .reveal-left,
+  .reveal-right {
+    transform: translateY(30px);
+  }
+
+  .reveal-up {
+    transform: translateY(30px);
+  }
+
+  .reveal-down {
+    transform: translateY(-30px);
   }
 }
 

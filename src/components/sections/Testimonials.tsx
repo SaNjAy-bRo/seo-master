@@ -52,7 +52,7 @@ export default function Testimonials() {
                     </p>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1.5rem" }} className="testimonials-grid">
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: "1.5rem" }} className="testimonials-grid">
                     {testimonials.map((t, i) => (
                         <div
                             key={t.name}

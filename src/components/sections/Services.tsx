@@ -65,7 +65,7 @@ export default function Services() {
                     </p>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1.5rem" }} className="services-grid">
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: "1.5rem" }} className="services-grid">
                     {services.map((service, i) => (
                         <div
                             key={service.title}

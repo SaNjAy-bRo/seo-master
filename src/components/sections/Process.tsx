@@ -126,12 +126,9 @@ export default function Process() {
 
             <style jsx>{`
         @media (max-width: 768px) {
-          .process-timeline-col { width: 48px !important; }
-          .process-card-inner { flex-direction: column !important; }
-        }
-        @media (max-width: 480px) {
           .process-timeline-col { display: none !important; }
-          .process-step > div:last-child { margin-left: 0 !important; }
+          .process-step > div:last-child { margin-left: 0 !important; padding: 1.5rem !important; }
+          .process-card-inner { flex-direction: column !important; }
         }
       `}</style>
         </section>

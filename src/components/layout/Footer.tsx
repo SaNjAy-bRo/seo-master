@@ -29,7 +29,7 @@ export default function Footer() {
     return (
         <footer style={{ background: "var(--color-bg-dark)", padding: "4rem 1.5rem 2rem" }}>
             <div style={{ maxWidth: "var(--container-max)", margin: "0 auto" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "3rem", marginBottom: "3rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "3rem", marginBottom: "3rem" }}>
                     {/* Brand */}
                     <div style={{ maxWidth: 320 }}>
                         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
@@ -64,9 +64,9 @@ export default function Footer() {
                     <div>
                         <h4 style={{ fontSize: "0.875rem", fontWeight: 600, color: "#fff", marginBottom: "1.25rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>Newsletter</h4>
                         <p style={{ color: "var(--color-muted-dark)", fontSize: "0.875rem", marginBottom: "1rem", lineHeight: 1.6 }}>Stay updated with our latest news, offers, and tips directly in your inbox.</p>
-                        <div style={{ display: "flex", gap: "0.5rem" }}>
-                            <input type="email" placeholder="Your email" style={{ flex: 1, padding: "0.625rem 1rem", background: "var(--color-bg-dark-card)", border: "1px solid var(--color-border-dark)", borderRadius: 10, color: "#fff", fontSize: "0.875rem", outline: "none" }} />
-                            <button className="btn-primary" style={{ padding: "0.625rem 1.25rem", fontSize: "0.813rem" }}>Subscribe</button>
+                        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                            <input type="email" placeholder="Your email" style={{ flex: "1 1 180px", padding: "0.625rem 1rem", background: "var(--color-bg-dark-card)", border: "1px solid var(--color-border-dark)", borderRadius: 10, color: "#fff", fontSize: "0.875rem", outline: "none" }} />
+                            <button className="btn-primary" style={{ padding: "0.625rem 1.25rem", fontSize: "0.813rem", whiteSpace: "nowrap" }}>Subscribe</button>
                         </div>
                     </div>
                 </div>
