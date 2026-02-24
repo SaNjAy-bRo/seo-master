@@ -1,6 +1,18 @@
 "use client";
 
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 export default function About() {
+    const header = useScrollReveal();
+    const text = useScrollReveal({ delay: 200 });
+    const features = useScrollReveal({ delay: 300 });
+    const btn = useScrollReveal({ delay: 400 });
+    const stat0 = useScrollReveal({ delay: 100 });
+    const stat1 = useScrollReveal({ delay: 200 });
+    const stat2 = useScrollReveal({ delay: 300 });
+    const stat3 = useScrollReveal({ delay: 400 });
+    const statRefs = [stat0, stat1, stat2, stat3];
+
     const stats = [
         { icon: "🚀", value: "150+", label: "Projects Completed", color: "#F97316" },
         { icon: "👥", value: "80+", label: "Happy Clients", color: "#3B82F6" },
@@ -18,25 +30,29 @@ export default function About() {
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }} className="about-grid">
                     {/* Left */}
                     <div>
-                        <span className="section-label">About Us</span>
-                        <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", marginBottom: "1.5rem" }}>
-                            Drive Traffic & Grow Your Business with{" "}
-                            <span style={{ color: "var(--color-primary)" }}>Proven SEO Strategies</span>
-                        </h2>
-                        <p style={{ color: "var(--color-body)", fontSize: "1rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-                            Unlock your website&apos;s full potential with our result-driven SEO
-                            services. Improve search rankings, increase organic traffic, and
-                            grow your online presence with customized strategies tailored for
-                            your business.
-                        </p>
-                        <p style={{ color: "var(--color-muted)", fontSize: "0.938rem", lineHeight: 1.8, marginBottom: "2rem" }}>
-                            Our team of certified digital marketing experts combines data-driven insights
-                            with creative strategy to deliver measurable results. We don&apos;t just
-                            optimize — we transform your digital presence.
-                        </p>
+                        <div ref={header.ref} className={`reveal reveal-left ${header.isVisible ? "visible" : ""}`}>
+                            <span className="section-label">About Us</span>
+                            <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", marginBottom: "1.5rem" }}>
+                                Drive Traffic & Grow Your Business with{" "}
+                                <span style={{ color: "var(--color-primary)" }}>Proven SEO Strategies</span>
+                            </h2>
+                        </div>
+                        <div ref={text.ref} className={`reveal reveal-up ${text.isVisible ? "visible" : ""}`}>
+                            <p style={{ color: "var(--color-body)", fontSize: "1rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
+                                Unlock your website&apos;s full potential with our result-driven SEO
+                                services. Improve search rankings, increase organic traffic, and
+                                grow your online presence with customized strategies tailored for
+                                your business.
+                            </p>
+                            <p style={{ color: "var(--color-muted)", fontSize: "0.938rem", lineHeight: 1.8, marginBottom: "2rem" }}>
+                                Our team of certified digital marketing experts combines data-driven insights
+                                with creative strategy to deliver measurable results. We don&apos;t just
+                                optimize — we transform your digital presence.
+                            </p>
+                        </div>
 
                         {/* Features mini-list */}
-                        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "2rem" }}>
+                        <div ref={features.ref} className={`reveal reveal-up ${features.isVisible ? "visible" : ""}`} style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "2rem" }}>
                             {["Data-driven keyword research & targeting", "White-hat link building strategies", "Transparent monthly reporting"].map((item) => (
                                 <div key={item} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                                     <div style={{ width: 22, height: 22, borderRadius: "50%", background: "var(--gradient-primary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -47,10 +63,12 @@ export default function About() {
                             ))}
                         </div>
 
-                        <a href="#services" className="btn-primary">
-                            Learn More
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-                        </a>
+                        <div ref={btn.ref} className={`reveal reveal-up ${btn.isVisible ? "visible" : ""}`}>
+                            <a href="#services" className="btn-primary">
+                                Learn More
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                            </a>
+                        </div>
                     </div>
 
                     {/* Right — Stats */}
@@ -58,11 +76,12 @@ export default function About() {
                         {stats.map((stat, i) => (
                             <div
                                 key={stat.label}
-                                className="card"
+                                ref={statRefs[i].ref}
+                                className={`card reveal reveal-scale ${statRefs[i].isVisible ? "visible" : ""}`}
                                 style={{
                                     padding: "1.75rem",
                                     textAlign: "center",
-                                    transform: i % 2 !== 0 ? "translateY(1.5rem)" : "none",
+                                    transform: !statRefs[i].isVisible ? "scale(0.92)" : (i % 2 !== 0 ? "translateY(1.5rem)" : "none"),
                                     background: "#fff",
                                     boxShadow: "var(--shadow-warm)",
                                 }}

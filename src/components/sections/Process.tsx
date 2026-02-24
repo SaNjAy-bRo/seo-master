@@ -1,5 +1,7 @@
 "use client";
 
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 const steps = [
     {
         number: "01",
@@ -32,6 +34,13 @@ const steps = [
 ];
 
 export default function Process() {
+    const header = useScrollReveal();
+    const step0 = useScrollReveal({ delay: 0 });
+    const step1 = useScrollReveal({ delay: 150 });
+    const step2 = useScrollReveal({ delay: 300 });
+    const step3 = useScrollReveal({ delay: 450 });
+    const stepRefs = [step0, step1, step2, step3];
+
     return (
         <section id="process" className="section" style={{ background: "var(--color-bg-dark)", overflow: "hidden" }}>
             {/* Subtle background pattern */}
@@ -39,7 +48,7 @@ export default function Process() {
 
             <div className="section-inner" style={{ position: "relative", zIndex: 1 }}>
                 {/* Header */}
-                <div style={{ textAlign: "center", marginBottom: "4.5rem" }}>
+                <div ref={header.ref} className={`reveal reveal-up ${header.isVisible ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "4.5rem" }}>
                     <span className="section-label section-label-dark">How We Work</span>
                     <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", marginBottom: "1rem", color: "#fff" }}>
                         Our Proven <span style={{ color: "var(--color-primary)" }}>Process</span>
@@ -52,7 +61,12 @@ export default function Process() {
                 {/* Steps — Alternating Layout */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
                     {steps.map((step, i) => (
-                        <div key={step.number} style={{ display: "flex", alignItems: "stretch", position: "relative" }} className="process-step">
+                        <div
+                            key={step.number}
+                            ref={stepRefs[i].ref}
+                            className={`reveal ${i % 2 === 0 ? "reveal-left" : "reveal-right"} ${stepRefs[i].isVisible ? "visible" : ""} process-step`}
+                            style={{ display: "flex", alignItems: "stretch", position: "relative" }}
+                        >
                             {/* Timeline Column */}
                             <div style={{ width: 80, flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }} className="process-timeline-col">
                                 {/* Vertical line */}

@@ -1,5 +1,7 @@
 "use client";
 
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 const blogPosts = [
     {
         title: "What Is Technical SEO? A Beginner-Friendly Guide",
@@ -28,10 +30,16 @@ const blogPosts = [
 ];
 
 export default function Blog() {
+    const header = useScrollReveal();
+    const card0 = useScrollReveal({ delay: 0 });
+    const card1 = useScrollReveal({ delay: 150 });
+    const card2 = useScrollReveal({ delay: 300 });
+    const cardRefs = [card0, card1, card2];
+
     return (
         <section id="blog" className="section" style={{ background: "var(--color-bg-cream)" }}>
             <div className="section-inner">
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "3rem", flexWrap: "wrap", gap: "1rem" }}>
+                <div ref={header.ref} className={`reveal reveal-up ${header.isVisible ? "visible" : ""}`} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "3rem", flexWrap: "wrap", gap: "1rem" }}>
                     <div>
                         <span className="section-label">Insights</span>
                         <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", marginBottom: "0.75rem" }}>
@@ -48,8 +56,13 @@ export default function Blog() {
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1.5rem" }} className="blog-grid">
-                    {blogPosts.map((post) => (
-                        <article key={post.title} className="card" style={{ overflow: "hidden", background: "#fff" }}>
+                    {blogPosts.map((post, i) => (
+                        <article
+                            key={post.title}
+                            ref={cardRefs[i].ref}
+                            className={`card reveal reveal-up ${cardRefs[i].isVisible ? "visible" : ""}`}
+                            style={{ overflow: "hidden", background: "#fff" }}
+                        >
                             {/* Color bar + gradient banner */}
                             <div style={{ position: "relative" }}>
                                 <div style={{ height: 4, background: post.color }} />

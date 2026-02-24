@@ -1,6 +1,12 @@
 "use client";
 
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 export default function Contact() {
+    const header = useScrollReveal();
+    const form = useScrollReveal({ delay: 100 });
+    const info = useScrollReveal({ delay: 200 });
+
     const contactInfo = [
         {
             icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>),
@@ -22,7 +28,7 @@ export default function Contact() {
     return (
         <section id="contact" className="section" style={{ background: "var(--color-bg-warm)" }}>
             <div className="section-inner">
-                <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+                <div ref={header.ref} className={`reveal reveal-up ${header.isVisible ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "4rem" }}>
                     <span className="section-label">Contact</span>
                     <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", marginBottom: "1rem" }}>
                         Get In <span style={{ color: "var(--color-primary)" }}>Touch</span>
@@ -34,7 +40,7 @@ export default function Contact() {
 
                 <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: "2rem", alignItems: "start" }} className="contact-grid">
                     {/* Form */}
-                    <div className="card" style={{ padding: "2.5rem" }}>
+                    <div ref={form.ref} className={`card reveal reveal-left ${form.isVisible ? "visible" : ""}`} style={{ padding: "2.5rem" }}>
                         <form style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }} onSubmit={(e) => e.preventDefault()}>
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }} className="contact-name-grid">
                                 <div>
@@ -73,7 +79,7 @@ export default function Contact() {
                     </div>
 
                     {/* Info Cards */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                    <div ref={info.ref} className={`reveal reveal-right ${info.isVisible ? "visible" : ""}`} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                         {contactInfo.map((item) => (
                             <div key={item.label} className="card" style={{ padding: "1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
                                 <div style={{ width: 48, height: 48, borderRadius: 12, background: "var(--color-primary-light-solid)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-primary)", flexShrink: 0 }}>

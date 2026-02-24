@@ -1,5 +1,7 @@
 "use client";
 
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 const services = [
     {
         icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /><line x1="8" y1="11" x2="14" y2="11" /></svg>),
@@ -40,10 +42,20 @@ const services = [
 ];
 
 export default function Services() {
+    const header = useScrollReveal();
+    const s0 = useScrollReveal({ delay: 0 });
+    const s1 = useScrollReveal({ delay: 100 });
+    const s2 = useScrollReveal({ delay: 200 });
+    const s3 = useScrollReveal({ delay: 150 });
+    const s4 = useScrollReveal({ delay: 250 });
+    const s5 = useScrollReveal({ delay: 350 });
+    const cardRefs = [s0, s1, s2, s3, s4, s5];
+    const ctaBtn = useScrollReveal({ delay: 200 });
+
     return (
         <section id="services" className="section" style={{ background: "var(--color-bg-white)", position: "relative" }}>
             <div className="section-inner">
-                <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+                <div ref={header.ref} className={`reveal reveal-up ${header.isVisible ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "4rem" }}>
                     <span className="section-label">What We Do</span>
                     <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", marginBottom: "1rem" }}>
                         Services We <span style={{ color: "var(--color-primary)" }}>Provide</span>
@@ -54,10 +66,11 @@ export default function Services() {
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1.5rem" }} className="services-grid">
-                    {services.map((service) => (
+                    {services.map((service, i) => (
                         <div
                             key={service.title}
-                            className="card"
+                            ref={cardRefs[i].ref}
+                            className={`card reveal reveal-up ${cardRefs[i].isVisible ? "visible" : ""}`}
                             style={{
                                 padding: "0",
                                 display: "flex",
@@ -93,7 +106,7 @@ export default function Services() {
                     ))}
                 </div>
 
-                <div style={{ textAlign: "center", marginTop: "3rem" }}>
+                <div ref={ctaBtn.ref} className={`reveal reveal-up ${ctaBtn.isVisible ? "visible" : ""}`} style={{ textAlign: "center", marginTop: "3rem" }}>
                     <a href="#contact" className="btn-secondary">
                         View All Services
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
