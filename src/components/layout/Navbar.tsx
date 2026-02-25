@@ -3,19 +3,26 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-/* ── Desktop-only link list (simple) ── */
-const desktopLinks = [
-    { label: "Home", href: "#" },
-    { label: "About", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Process", href: "#process" },
-    { label: "Blog", href: "#blog" },
-    { label: "Contact", href: "#contact" },
-];
+/* ── Desktop Nav Links are explicitly rendered now ── */
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
+
+    let dropdownTimeout: NodeJS.Timeout;
+
+    const handleMouseEnter = (menu: string) => {
+        clearTimeout(dropdownTimeout);
+        setActiveDropdown(menu);
+    };
+
+    const handleMouseLeave = () => {
+        dropdownTimeout = setTimeout(() => {
+            setActiveDropdown(null);
+        }, 150); // slight delay to prevent flickering
+    };
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 60);
@@ -54,28 +61,58 @@ export default function Navbar() {
                 <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     {/* Logo */}
                     <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                        <div style={{ width: 36, height: 36, background: "var(--gradient-primary)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "1.1rem", color: "#fff" }}>
-                            S
-                        </div>
-                        <span style={{ fontWeight: 700, fontSize: "1.25rem", color: mobileOpen ? "#fff" : logoTextColor, transition: "color 0.3s" }}>
-                            Seo<span style={{ color: "var(--color-primary)" }}>Masterr</span>
-                        </span>
+                        <img
+                            src={(!mobileOpen && scrolled) ? "/logo.png" : "/logo.jpeg"}
+                            alt="SeoMasterr"
+                            style={{
+                                height: "40px",
+                                width: "auto",
+                                display: "block"
+                            }}
+                        />
                     </Link>
 
                     {/* Desktop Nav */}
-                    <nav className="nav-desktop" style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-                        {desktopLinks.map((link) => (
-                            <a
-                                key={link.label}
-                                href={link.href}
-                                style={{ color: textColor, textDecoration: "none", fontSize: "0.875rem", fontWeight: 500, transition: "color 0.2s" }}
-                                onMouseEnter={(e) => (e.currentTarget.style.color = textHoverColor)}
-                                onMouseLeave={(e) => (e.currentTarget.style.color = textColor)}
-                            >{link.label}</a>
-                        ))}
-                        <a href="#contact" className="btn-primary" style={{ padding: "0.625rem 1.5rem", fontSize: "0.875rem" }}>
-                            Request a Call
-                        </a>
+                    <nav className="nav-desktop" style={{ display: "flex", alignItems: "center", gap: "1.75rem", height: "100%" }}>
+                        <DesktopNavItem href="/" icon={IconHome} label="HOME" color={textColor} hoverColor={textHoverColor} />
+
+                        {/* Blog with Mega Menu */}
+                        <div
+                            style={{ height: "100%", display: "flex", alignItems: "center" }}
+                            onMouseEnter={() => handleMouseEnter("blog")}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <DesktopNavItem href="/#blog" icon={IconBlog} label="BLOG" hasDropdown color={textColor} hoverColor={textHoverColor} isActive={activeDropdown === "blog"} />
+                            <MegaMenu isOpen={activeDropdown === "blog"} type="blog" />
+                        </div>
+
+                        {/* Services with Mega Menu */}
+                        <div
+                            style={{ height: "100%", display: "flex", alignItems: "center" }}
+                            onMouseEnter={() => handleMouseEnter("services")}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <DesktopNavItem href="/#services" icon={IconServices} label="SERVICES" hasDropdown color={textColor} hoverColor={textHoverColor} isActive={activeDropdown === "services"} />
+                            <MegaMenu isOpen={activeDropdown === "services"} type="services" />
+                        </div>
+
+                        <DesktopNavItem href="/about" icon={IconAbout} label="ABOUT US" color={textColor} hoverColor={textHoverColor} />
+                        <DesktopNavItem href="/contact" icon={IconPhone} label="CONTACT US" color="var(--color-primary)" hoverColor="var(--color-primary)" />
+
+                        <button onClick={(e) => { e.preventDefault(); setIsSubscribeModalOpen(true); }} style={{
+                            display: "flex", alignItems: "center", gap: "0.5rem",
+                            padding: "0.45rem 1.25rem", borderRadius: "99px",
+                            border: "1px solid rgba(255,255,255,0.3)",
+                            color: "#fff", textDecoration: "none", fontSize: "0.75rem", fontWeight: 700,
+                            letterSpacing: "0.05em", transition: "all 0.2s",
+                            background: "transparent", cursor: "pointer"
+                        }}
+                            onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                        >
+                            <span style={{ display: "flex", alignItems: "center", transform: "scale(0.9)" }}><IconBell /></span>
+                            SUBSCRIBE
+                        </button>
                     </nav>
 
                     {/* Mobile Hamburger */}
@@ -142,41 +179,111 @@ export default function Navbar() {
 
                     {/* Sub-section: More Services */}
                     <MobileSubSection accentColor="var(--color-primary)">
-                        <MobileNavSubItem href="#services" icon={IconGrid} label="All Services" onClick={close} />
-                        <MobileNavSubItem href="#process" icon={IconProcess} label="Process" onClick={close} />
+                        <MobileNavSubItem href="/#services" icon={IconGrid} label="All Services" onClick={close} />
+                        <MobileNavSubItem href="/#process" icon={IconProcess} label="Process" onClick={close} />
                     </MobileSubSection>
 
                     {/* About Us */}
-                    <MobileNavItem href="#about" icon={IconAbout} label="About Us" onClick={close} />
+                    <MobileNavItem href="/about" icon={IconAbout} label="About Us" onClick={close} />
 
                     {/* Contact Us */}
-                    <MobileNavItem href="#contact" icon={IconPhone} label="Contact Us" onClick={close} />
+                    <MobileNavItem href="/contact" icon={IconPhone} label="Contact Us" onClick={close} />
                 </nav>
 
                 {/* ── Bottom: Subscribe ── */}
                 <div style={{ padding: "1rem 1.5rem 2rem", marginTop: "auto" }}>
                     <div style={{ height: 1, background: "rgba(255,255,255,0.08)", marginBottom: "1.25rem" }} />
-                    <a
-                        href="#contact"
-                        onClick={close}
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setIsSubscribeModalOpen(true);
+                            close();
+                        }}
                         style={{
                             display: "block",
+                            width: "100%",
                             textAlign: "center",
                             padding: "0.875rem",
                             border: "1.5px solid rgba(255,255,255,0.2)",
                             borderRadius: 12,
                             color: "#fff",
-                            textDecoration: "none",
+                            background: "transparent",
                             fontSize: "0.813rem",
                             fontWeight: 700,
                             letterSpacing: "0.1em",
                             textTransform: "uppercase",
+                            cursor: "pointer",
                         }}
                     >
                         Subscribe
-                    </a>
+                    </button>
                 </div>
             </div>
+
+            {/* ── Subscribe Modal ── */}
+            {isSubscribeModalOpen && (
+                <div style={{
+                    position: "fixed", inset: 0, zIndex: 1200,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)"
+                }} onClick={() => setIsSubscribeModalOpen(false)}>
+                    <div style={{
+                        background: "#fff", borderRadius: "12px", padding: "3rem 2.5rem",
+                        width: "90%", maxWidth: "450px", textAlign: "center",
+                        boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
+                        position: "relative"
+                    }} onClick={(e) => e.stopPropagation()}>
+
+                        <button
+                            onClick={() => setIsSubscribeModalOpen(false)}
+                            style={{
+                                position: "absolute", top: "1rem", right: "1rem",
+                                background: "none", border: "none", fontSize: "1.5rem",
+                                color: "#999", cursor: "pointer", lineHeight: 1
+                            }}
+                        >&times;</button>
+
+                        <h3 style={{ fontSize: "1.35rem", fontWeight: 600, color: "#111", marginBottom: "1.75rem" }}>
+                            Enter your email to subscribe
+                        </h3>
+
+                        <div style={{ position: "relative", marginBottom: "1.5rem" }}>
+                            <span style={{
+                                position: "absolute", left: "1rem", top: "50%", transform: "translateY(-50%)",
+                                color: "#888", display: "flex", alignItems: "center"
+                            }}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><path d="m2 6 10 7 10-7"></path></svg>
+                            </span>
+                            <input
+                                type="email"
+                                placeholder="example@mail.com"
+                                style={{
+                                    width: "100%", padding: "0.875rem 1rem 0.875rem 2.75rem",
+                                    borderRadius: "8px", border: "1px solid #ccc",
+                                    fontSize: "1rem", outline: "none", color: "#333",
+                                    boxSizing: "border-box"
+                                }}
+                            />
+                        </div>
+
+                        <button style={{
+                            background: "#FF7A00", color: "#fff", border: "none",
+                            borderRadius: "99px", padding: "0.75rem 2rem",
+                            fontSize: "0.95rem", fontWeight: 700, letterSpacing: "0.05em",
+                            display: "inline-flex", alignItems: "center", gap: "0.5rem",
+                            cursor: "pointer", boxShadow: "0 4px 14px rgba(255, 122, 0, 0.4)",
+                            transition: "transform 0.2s"
+                        }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
+                        >
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                            SUBMIT
+                        </button>
+                    </div>
+                </div>
+            )
+            }
 
             <style jsx>{`
                 @media (max-width: 768px) {
@@ -196,6 +303,180 @@ export default function Navbar() {
 /* ────────────────────────────────────────────
    Small Sub-components — keeps JSX clean
    ──────────────────────────────────────────── */
+
+function DesktopNavItem({ href, icon: Icon, label, hasDropdown, color, hoverColor, isActive }: {
+    href: string; icon: React.FC; label: string; hasDropdown?: boolean; color: string; hoverColor: string; isActive?: boolean;
+}) {
+    return (
+        <a
+            href={href}
+            style={{
+                display: "flex", alignItems: "center", gap: "0.35rem",
+                color: isActive ? hoverColor : color, textDecoration: "none", fontSize: "0.75rem", fontWeight: 600,
+                transition: "color 0.2s", letterSpacing: "0.02em",
+                height: "100%", position: "relative"
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = hoverColor)}
+            onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = color; }}
+        >
+            <span style={{ display: "flex", alignItems: "center", transform: "scale(0.85)", opacity: 0.9 }}><Icon /></span>
+            {label}
+            {hasDropdown && <span style={{ display: "flex", alignItems: "center", marginLeft: "-0.1rem", opacity: 0.7, transform: isActive ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}><IconChevronDown /></span>}
+
+            {/* Minimal invisible padding to bridge gap to dropdown */}
+            {hasDropdown && <div style={{ position: "absolute", bottom: "-20px", left: 0, right: 0, height: "20px" }} />}
+        </a>
+    );
+}
+
+function MegaMenu({ isOpen, type }: { isOpen: boolean, type: "blog" | "services" }) {
+    if (!isOpen) return null;
+
+    const isBlog = type === "blog";
+
+    return (
+        <div style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            right: 0,
+            background: "#FFF8F0", // Light orange/white as requested
+            borderTop: "1px solid rgba(249,115,22,0.1)",
+            boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+            padding: "2rem 1.5rem 3rem",
+            cursor: "default",
+            animation: "megaMenuFadeIn 0.2s ease-out forwards",
+            transformOrigin: "top"
+        }}>
+            <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 1.5rem" }}>
+
+                {/* Top Categories Row */}
+                <div style={{ display: "flex", gap: "0.75rem", marginBottom: "2.5rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1.25rem", border: "1px solid var(--color-primary)", borderRadius: "99px", color: "var(--color-primary)", background: "rgba(249,115,22,0.1)", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.02em", cursor: "pointer", transition: "all 0.2s" }}>
+                        <span style={{ color: "var(--color-primary)" }}><IconBlog /></span>
+                        {isBlog ? "SEO" : "Technical SEO"}
+                    </div>
+                </div>
+
+                <style jsx>{`
+                    @keyframes megaMenuFadeIn {
+                        from { opacity: 0; transform: translateY(-5px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    .mega-card {
+                        background: #F97316; /* Solid orange background */
+                        border: 1px solid rgba(0,0,0,0.1);
+                        border-radius: 12px;
+                        overflow: hidden;
+                        aspect-ratio: 16/10;
+                        position: relative;
+                        padding: 1.5rem;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-end;
+                        color: #ffffff; /* White text for contrast */
+                        text-decoration: none;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                    }
+                    .mega-card:hover {
+                        transform: translateY(-4px);
+                        box-shadow: 0 12px 30px rgba(249,115,22,0.3);
+                        border-color: rgba(0,0,0,0.2);
+                        background: #EA580C; /* Slightly darker solid orange on hover */
+                    }
+                    .mega-card-content {
+                        z-index: 2;
+                        position: relative;
+                        color: #ffffff;
+                    }
+                `}</style>
+
+                {/* Content Grid */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+
+                    <div style={{ flex: 1 }}>
+                        <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#111", marginBottom: "1.5rem", letterSpacing: "-0.01em" }}>
+                            {isBlog ? "Latest in SEO" : "Featured Services"}
+                        </h3>
+
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", maxWidth: "900px" }}>
+                            {/* Card 1 */}
+                            <div>
+                                <a href="/#blog" className="mega-card">
+                                    <div className="mega-card-content">
+                                        <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
+                                            {isBlog ? "What is Technical SEO? Simple Beginner Guide" : "Enterprise SEO Audits"}
+                                        </h4>
+                                        <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", gap: "0.35rem", fontWeight: 600 }}>
+                                            <IconBlog /> Feb 18, 2026
+                                        </div>
+                                    </div>
+                                </a>
+                                <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
+                                    {isBlog ? "What is Technical SEO? A Beginner-Friendly Explanation" : "Comprehensive site analysis and technical action plans."}
+                                </div>
+                            </div>
+
+                            {/* Card 2 */}
+                            <div>
+                                <a href="/#blog" className="mega-card">
+                                    <div className="mega-card-content">
+                                        <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
+                                            {isBlog ? "What Is On-Page SEO & Why It Matters in 2026" : "On-Page Optimization"}
+                                        </h4>
+                                        <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", gap: "0.35rem", fontWeight: 600 }}>
+                                            <IconBlog /> Feb 18, 2026
+                                        </div>
+                                    </div>
+                                </a>
+                                <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
+                                    {isBlog ? "What Is On-Page SEO and Why It Matters in 2026" : "Keyword targeting, meta revamps, and structure updates."}
+                                </div>
+                            </div>
+
+                            {/* Card 3 */}
+                            <div>
+                                <a href="/#blog" className="mega-card">
+                                    <div className="mega-card-content">
+                                        <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
+                                            {isBlog ? "What Are SEO Services and How Do They Work?" : "Off-Page Link Building"}
+                                        </h4>
+                                        <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", gap: "0.35rem", fontWeight: 600 }}>
+                                            <IconBlog /> Feb 4, 2026
+                                        </div>
+                                    </div>
+                                </a>
+                                <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
+                                    {isBlog ? "What Are SEO Services and How Do They Work?" : "High authority backlink acquisition strategies."}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Side Promotion Card */}
+                    <div style={{ width: "300px", marginLeft: "2rem", background: "linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)", borderRadius: "16px", padding: "2.5rem", color: "#fff", boxShadow: "0 10px 30px rgba(109,40,217,0.2)", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                        <div style={{ position: "relative", zIndex: 2 }}>
+                            <div style={{ fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.8)", marginBottom: "0.75rem" }}>
+                                Stay Informed
+                            </div>
+                            <h4 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1rem", lineHeight: 1.2, letterSpacing: "-0.01em" }}>
+                                Never Miss an Update
+                            </h4>
+                            <p style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.9)", marginBottom: "2rem", lineHeight: 1.5 }}>
+                                Get latest insights delivered to your inbox
+                            </p>
+                            <a href="#subscribe" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "#fff", color: "#6D28D9", padding: "0.7rem 1.5rem", borderRadius: "99px", fontSize: "0.8rem", fontWeight: 800, letterSpacing: "0.05em", textDecoration: "none", transition: "transform 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
+                                VIEW ALL <span style={{ strokeWidth: 3, transform: "rotate(-90deg)" }}><IconChevronDown /></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    );
+}
 
 function MobileNavItem({ href, icon: Icon, label, active, onClick }: {
     href: string; icon: React.FC; label: string; active?: boolean; onClick: () => void;
@@ -313,5 +594,17 @@ const IconAbout = () => (
 const IconPhone = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+);
+
+const IconBell = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" />
+    </svg>
+);
+
+const IconChevronDown = () => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="6 9 12 15 18 9" />
     </svg>
 );

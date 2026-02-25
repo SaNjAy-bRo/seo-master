@@ -4,16 +4,16 @@ import Link from "next/link";
 
 const footerLinks = {
     Company: [
-        { label: "About Us", href: "#about" },
-        { label: "Our Process", href: "#process" },
-        { label: "Blog", href: "#blog" },
-        { label: "Contact", href: "#contact" },
+        { label: "About Us", href: "/about" },
+        { label: "Our Process", href: "/#process" },
+        { label: "Blog", href: "/#blog" },
+        { label: "Contact", href: "/contact" },
     ],
     Services: [
-        { label: "Technical SEO", href: "#services" },
-        { label: "On-Page SEO", href: "#services" },
-        { label: "PPC Management", href: "#services" },
-        { label: "Social Media", href: "#services" },
+        { label: "Technical SEO", href: "/#services" },
+        { label: "On-Page SEO", href: "/#services" },
+        { label: "PPC Management", href: "/#services" },
+        { label: "Social Media", href: "/#services" },
     ],
 };
 
@@ -33,8 +33,15 @@ export default function Footer() {
                     {/* Brand */}
                     <div style={{ maxWidth: 320 }}>
                         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
-                            <div style={{ width: 32, height: 32, background: "var(--gradient-primary)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "0.9rem", color: "#fff" }}>S</div>
-                            <span style={{ fontWeight: 700, fontSize: "1.1rem", color: "#fff" }}>Seo<span style={{ color: "var(--color-primary)" }}>Masterr</span></span>
+                            <img
+                                src="/logo.jpeg"
+                                alt="SeoMasterr"
+                                style={{
+                                    height: "40px",
+                                    width: "auto",
+                                    display: "block"
+                                }}
+                            />
                         </Link>
                         <p style={{ color: "var(--color-muted-dark)", fontSize: "0.875rem", lineHeight: 1.7 }}>
                             At Seomasterr, we specialize in delivering measurable digital growth. From driving traffic through expert SEO practices to generating qualified leads via PPC and social media campaigns.
