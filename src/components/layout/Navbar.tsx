@@ -9,7 +9,6 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-    const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
 
     let dropdownTimeout: NodeJS.Timeout;
 
@@ -99,20 +98,20 @@ export default function Navbar() {
                         <DesktopNavItem href="/about" icon={IconAbout} label="ABOUT US" color={textColor} hoverColor={textHoverColor} />
                         <DesktopNavItem href="/contact" icon={IconPhone} label="CONTACT US" color="var(--color-primary)" hoverColor="var(--color-primary)" />
 
-                        <button onClick={(e) => { e.preventDefault(); setIsSubscribeModalOpen(true); }} style={{
+                        <a href="tel:+917787846060" style={{
                             display: "flex", alignItems: "center", gap: "0.5rem",
                             padding: "0.45rem 1.25rem", borderRadius: "99px",
-                            border: "1px solid rgba(255,255,255,0.3)",
-                            color: "#fff", textDecoration: "none", fontSize: "0.75rem", fontWeight: 700,
+                            border: `1px solid ${scrolled ? "var(--color-border)" : "rgba(255,255,255,0.3)"}`,
+                            color: textColor, textDecoration: "none", fontSize: "0.85rem", fontWeight: 700,
                             letterSpacing: "0.05em", transition: "all 0.2s",
                             background: "transparent", cursor: "pointer"
                         }}
-                            onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }}
+                            onMouseEnter={(e) => { e.currentTarget.style.background = scrolled ? "var(--color-bg-cream)" : "rgba(255,255,255,0.1)"; }}
                             onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
                         >
-                            <span style={{ display: "flex", alignItems: "center", transform: "scale(0.9)" }}><IconBell /></span>
-                            SUBSCRIBE
-                        </button>
+                            <span style={{ display: "flex", alignItems: "center", transform: "scale(0.9)" }}><IconPhone /></span>
+                            +91 7787 846 060
+                        </a>
                     </nav>
 
                     {/* Mobile Hamburger */}
@@ -193,100 +192,32 @@ export default function Navbar() {
                     <MobileNavItem href="/contact" icon={IconPhone} label="Contact Us" onClick={close} />
                 </nav>
 
-                {/* ── Bottom: Subscribe ── */}
+                {/* ── Bottom: Phone Number ── */}
                 <div style={{ padding: "1rem 1.5rem 2rem", marginTop: "auto" }}>
                     <div style={{ height: 1, background: "rgba(255,255,255,0.08)", marginBottom: "1.25rem" }} />
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            setIsSubscribeModalOpen(true);
-                            close();
-                        }}
+                    <a href="tel:+917787846060"
                         style={{
-                            display: "block",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "0.75rem",
                             width: "100%",
-                            textAlign: "center",
                             padding: "0.875rem",
                             border: "1.5px solid rgba(255,255,255,0.2)",
                             borderRadius: 12,
                             color: "#fff",
                             background: "transparent",
-                            fontSize: "0.813rem",
+                            fontSize: "1rem",
                             fontWeight: 700,
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                            cursor: "pointer",
+                            letterSpacing: "0.05em",
+                            textDecoration: "none",
                         }}
                     >
-                        Subscribe
-                    </button>
+                        <IconPhone />
+                        +91 7787 846 060
+                    </a>
                 </div>
             </div>
-
-            {/* ── Subscribe Modal ── */}
-            {isSubscribeModalOpen && (
-                <div style={{
-                    position: "fixed", inset: 0, zIndex: 1200,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)"
-                }} onClick={() => setIsSubscribeModalOpen(false)}>
-                    <div style={{
-                        background: "#fff", borderRadius: "12px", padding: "3rem 2.5rem",
-                        width: "90%", maxWidth: "450px", textAlign: "center",
-                        boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
-                        position: "relative"
-                    }} onClick={(e) => e.stopPropagation()}>
-
-                        <button
-                            onClick={() => setIsSubscribeModalOpen(false)}
-                            style={{
-                                position: "absolute", top: "1rem", right: "1rem",
-                                background: "none", border: "none", fontSize: "1.5rem",
-                                color: "#999", cursor: "pointer", lineHeight: 1
-                            }}
-                        >&times;</button>
-
-                        <h3 style={{ fontSize: "1.35rem", fontWeight: 600, color: "#111", marginBottom: "1.75rem" }}>
-                            Enter your email to subscribe
-                        </h3>
-
-                        <div style={{ position: "relative", marginBottom: "1.5rem" }}>
-                            <span style={{
-                                position: "absolute", left: "1rem", top: "50%", transform: "translateY(-50%)",
-                                color: "#888", display: "flex", alignItems: "center"
-                            }}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><path d="m2 6 10 7 10-7"></path></svg>
-                            </span>
-                            <input
-                                type="email"
-                                placeholder="example@mail.com"
-                                style={{
-                                    width: "100%", padding: "0.875rem 1rem 0.875rem 2.75rem",
-                                    borderRadius: "8px", border: "1px solid #ccc",
-                                    fontSize: "1rem", outline: "none", color: "#333",
-                                    boxSizing: "border-box"
-                                }}
-                            />
-                        </div>
-
-                        <button style={{
-                            background: "#FF7A00", color: "#fff", border: "none",
-                            borderRadius: "99px", padding: "0.75rem 2rem",
-                            fontSize: "0.95rem", fontWeight: 700, letterSpacing: "0.05em",
-                            display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                            cursor: "pointer", boxShadow: "0 4px 14px rgba(255, 122, 0, 0.4)",
-                            transition: "transform 0.2s"
-                        }}
-                            onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
-                            onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
-                        >
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                            SUBMIT
-                        </button>
-                    </div>
-                </div>
-            )
-            }
 
             <style jsx>{`
                 @media (max-width: 768px) {
