@@ -170,8 +170,11 @@ export default function Navbar() {
 
                     {/* Sub-section: Services (SEO group) */}
                     <MobileSubSection accentColor="var(--color-primary)">
-                        <MobileNavSubItem href="#services" icon={IconGrid} label="All Services" onClick={close} />
-                        <MobileNavSubItem href="#services" icon={IconSearch} label="SEO" onClick={close} />
+                        <MobileNavSubItem href="/services/seo" icon={IconSearch} label="SEO Services" onClick={close} />
+                        <MobileNavSubItem href="/services/website-design" icon={IconGrid} label="Website Design" onClick={close} />
+                        <MobileNavSubItem href="/services/social-media-optimization" icon={IconSearch} label="Social Media Marketing" onClick={close} />
+                        <MobileNavSubItem href="/services/email-marketing" icon={IconSearch} label="Email Marketing" onClick={close} />
+                        <MobileNavSubItem href="/services/ppc-management" icon={IconSearch} label="PPC Services" onClick={close} />
                     </MobileSubSection>
 
                     {/* Services */}
@@ -352,10 +355,12 @@ function MegaMenu({ isOpen, type }: { isOpen: boolean, type: "blog" | "services"
 
                 {/* Top Categories Row */}
                 <div style={{ display: "flex", gap: "0.75rem", marginBottom: "2.5rem" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1.25rem", border: "1px solid var(--color-primary)", borderRadius: "99px", color: "var(--color-primary)", background: "rgba(249,115,22,0.1)", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.02em", cursor: "pointer", transition: "all 0.2s" }}>
-                        <span style={{ color: "var(--color-primary)" }}><IconBlog /></span>
-                        {isBlog ? "SEO" : "Technical SEO"}
-                    </div>
+                    <Link href={isBlog ? "/#blog" : "/services/seo"} style={{ textDecoration: "none" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1.25rem", border: "1px solid var(--color-primary)", borderRadius: "99px", color: "var(--color-primary)", background: "rgba(249,115,22,0.1)", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.02em", cursor: "pointer", transition: "all 0.2s" }}>
+                            <span style={{ color: "var(--color-primary)" }}><IconBlog /></span>
+                            {isBlog ? "SEO" : "Technical SEO"}
+                        </div>
+                    </Link>
                 </div>
 
                 <style jsx>{`
@@ -400,74 +405,99 @@ function MegaMenu({ isOpen, type }: { isOpen: boolean, type: "blog" | "services"
                             {isBlog ? "Latest in SEO" : "Featured Services"}
                         </h3>
 
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", maxWidth: "900px" }}>
-                            {/* Card 1 */}
-                            <div>
-                                <a href="/#blog" className="mega-card">
-                                    <div className="mega-card-content">
-                                        <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
-                                            {isBlog ? "What is Technical SEO? Simple Beginner Guide" : "Enterprise SEO Audits"}
-                                        </h4>
-                                        <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", gap: "0.35rem", fontWeight: 600 }}>
-                                            <IconBlog /> Feb 18, 2026
+                        {isBlog ? (
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", maxWidth: "900px" }}>
+                                {/* Card 1 */}
+                                <div>
+                                    <a href="/#blog" className="mega-card">
+                                        <div className="mega-card-content">
+                                            <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
+                                                What is Technical SEO? Simple Beginner Guide
+                                            </h4>
+                                            <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", gap: "0.35rem", fontWeight: 600 }}>
+                                                <IconBlog /> Feb 18, 2026
+                                            </div>
                                         </div>
+                                    </a>
+                                    <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
+                                        What is Technical SEO? A Beginner-Friendly Explanation
                                     </div>
-                                </a>
-                                <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
-                                    {isBlog ? "What is Technical SEO? A Beginner-Friendly Explanation" : "Comprehensive site analysis and technical action plans."}
                                 </div>
-                            </div>
 
-                            {/* Card 2 */}
-                            <div>
-                                <a href="/#blog" className="mega-card">
-                                    <div className="mega-card-content">
-                                        <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
-                                            {isBlog ? "What Is On-Page SEO & Why It Matters in 2026" : "On-Page Optimization"}
-                                        </h4>
-                                        <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", gap: "0.35rem", fontWeight: 600 }}>
-                                            <IconBlog /> Feb 18, 2026
+                                {/* Card 2 */}
+                                <div>
+                                    <a href="/#blog" className="mega-card">
+                                        <div className="mega-card-content">
+                                            <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
+                                                What Is On-Page SEO & Why It Matters in 2026
+                                            </h4>
+                                            <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", gap: "0.35rem", fontWeight: 600 }}>
+                                                <IconBlog /> Feb 18, 2026
+                                            </div>
                                         </div>
+                                    </a>
+                                    <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
+                                        What Is On-Page SEO and Why It Matters in 2026
                                     </div>
-                                </a>
-                                <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
-                                    {isBlog ? "What Is On-Page SEO and Why It Matters in 2026" : "Keyword targeting, meta revamps, and structure updates."}
                                 </div>
-                            </div>
 
-                            {/* Card 3 */}
-                            <div>
-                                <a href="/#blog" className="mega-card">
-                                    <div className="mega-card-content">
-                                        <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
-                                            {isBlog ? "What Are SEO Services and How Do They Work?" : "Off-Page Link Building"}
-                                        </h4>
-                                        <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", gap: "0.35rem", fontWeight: 600 }}>
-                                            <IconBlog /> Feb 4, 2026
+                                {/* Card 3 */}
+                                <div>
+                                    <a href="/#blog" className="mega-card">
+                                        <div className="mega-card-content">
+                                            <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
+                                                What Are SEO Services and How Do They Work?
+                                            </h4>
+                                            <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", gap: "0.35rem", fontWeight: 600 }}>
+                                                <IconBlog /> Feb 4, 2026
+                                            </div>
                                         </div>
+                                    </a>
+                                    <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
+                                        What Are SEO Services and How Do They Work?
                                     </div>
-                                </a>
-                                <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
-                                    {isBlog ? "What Are SEO Services and How Do They Work?" : "High authority backlink acquisition strategies."}
                                 </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div style={{ display: "flex", gap: "1.5rem", maxWidth: "900px", overflowX: "auto", paddingBottom: "1.5rem", scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}>
+                                {[
+                                    { title: "SEO Services", href: "/services/seo", desc: "Comprehensive search rankings." },
+                                    { title: "Website Design", href: "/services/website-design", desc: "Custom conversion-focused sites." },
+                                    { title: "Social Media Marketing", href: "/services/social-media-optimization", desc: "Audience growth & engagement." },
+                                    { title: "Email Marketing", href: "/services/email-marketing", desc: "Automated nurturing campaigns." },
+                                    { title: "PPC Services", href: "/services/ppc-management", desc: "ROI-driven paid advertising." }
+                                ].map((svc, i) => (
+                                    <div key={i} style={{ flex: "0 0 calc(33.333% - 1rem)", minWidth: "220px" }}>
+                                        <a href={svc.href} className="mega-card">
+                                            <div className="mega-card-content">
+                                                <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
+                                                    {svc.title}
+                                                </h4>
+                                            </div>
+                                        </a>
+                                        <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
+                                            {svc.desc}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     {/* Right Side Promotion Card */}
-                    <div style={{ width: "300px", marginLeft: "2rem", background: "linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)", borderRadius: "16px", padding: "2.5rem", color: "#fff", boxShadow: "0 10px 30px rgba(109,40,217,0.2)", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                    <div style={{ width: "280px", flexShrink: 0, marginLeft: "2rem", background: "linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)", borderRadius: "16px", padding: "2.5rem", color: "#fff", boxShadow: "0 10px 30px rgba(109,40,217,0.2)", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                         <div style={{ position: "relative", zIndex: 2 }}>
                             <div style={{ fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.8)", marginBottom: "0.75rem" }}>
-                                Stay Informed
+                                Ready to Grow?
                             </div>
                             <h4 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1rem", lineHeight: 1.2, letterSpacing: "-0.01em" }}>
-                                Never Miss an Update
+                                Contact Us Today
                             </h4>
                             <p style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.9)", marginBottom: "2rem", lineHeight: 1.5 }}>
-                                Get latest insights delivered to your inbox
+                                Start building a strong digital presence now.
                             </p>
-                            <a href="#subscribe" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "#fff", color: "#6D28D9", padding: "0.7rem 1.5rem", borderRadius: "99px", fontSize: "0.8rem", fontWeight: 800, letterSpacing: "0.05em", textDecoration: "none", transition: "transform 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
-                                VIEW ALL <span style={{ strokeWidth: 3, transform: "rotate(-90deg)" }}><IconChevronDown /></span>
+                            <a href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "#fff", color: "#6D28D9", padding: "0.7rem 1.5rem", borderRadius: "99px", fontSize: "0.8rem", fontWeight: 800, letterSpacing: "0.05em", textDecoration: "none", transition: "transform 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
+                                REACH OUT <span style={{ strokeWidth: 3, transform: "rotate(-90deg)" }}><IconChevronDown /></span>
                             </a>
                         </div>
                     </div>

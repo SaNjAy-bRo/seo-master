@@ -81,7 +81,13 @@ export default function Footer() {
                 <div style={{ height: 1, background: "var(--color-border-dark)", marginBottom: "1.5rem" }} />
 
                 <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
-                    <p style={{ color: "var(--color-muted-dark)", fontSize: "0.813rem", margin: 0 }}>© 2026 SeoMasterr. All rights reserved.</p>
+                    <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", flexWrap: "wrap" }}>
+                        <p style={{ color: "var(--color-muted-dark)", fontSize: "0.813rem", margin: 0 }}>© 2026 SeoMasterr. All rights reserved.</p>
+                        <div style={{ display: "flex", gap: "1rem", color: "var(--color-muted-dark)", fontSize: "0.813rem" }}>
+                            <Link href="/privacy-policy" style={{ color: "inherit", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--color-primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--color-muted-dark)"}>Privacy Policy</Link>
+                            <Link href="#" style={{ color: "inherit", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--color-primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--color-muted-dark)"}>Terms of Service</Link>
+                        </div>
+                    </div>
                     <div style={{ display: "flex", gap: "0.75rem" }}>
                         {socialLinks.map((s) => (
                             <a
