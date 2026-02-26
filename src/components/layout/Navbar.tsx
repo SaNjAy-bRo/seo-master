@@ -346,7 +346,7 @@ function MegaMenu({ isOpen, type }: { isOpen: boolean, type: "blog" | "services"
             background: "#FFF8F0", // Light orange/white as requested
             borderTop: "1px solid rgba(249,115,22,0.1)",
             boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-            padding: "2rem 1.5rem 3rem",
+            padding: "1.25rem 1.5rem 2.5rem",
             cursor: "default",
             animation: "megaMenuFadeIn 0.2s ease-out forwards",
             transformOrigin: "top"
@@ -354,11 +354,11 @@ function MegaMenu({ isOpen, type }: { isOpen: boolean, type: "blog" | "services"
             <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 1.5rem" }}>
 
                 {/* Top Categories Row */}
-                <div style={{ display: "flex", gap: "0.75rem", marginBottom: "2.5rem" }}>
+                <div style={{ display: "flex", gap: "0.75rem", marginBottom: "1.25rem" }}>
                     <Link href={isBlog ? "/#blog" : "/services/seo"} style={{ textDecoration: "none" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1.25rem", border: "1px solid var(--color-primary)", borderRadius: "99px", color: "var(--color-primary)", background: "rgba(249,115,22,0.1)", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.02em", cursor: "pointer", transition: "all 0.2s" }}>
                             <span style={{ color: "var(--color-primary)" }}><IconBlog /></span>
-                            {isBlog ? "SEO" : "Technical SEO"}
+                            {isBlog ? "Latest in SEO" : "Featured Services"}
                         </div>
                     </Link>
                 </div>
@@ -398,13 +398,9 @@ function MegaMenu({ isOpen, type }: { isOpen: boolean, type: "blog" | "services"
                 `}</style>
 
                 {/* Content Grid */}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
 
                     <div style={{ flex: 1 }}>
-                        <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#111", marginBottom: "1.5rem", letterSpacing: "-0.01em" }}>
-                            {isBlog ? "Latest in SEO" : "Featured Services"}
-                        </h3>
-
                         {isBlog ? (
                             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", maxWidth: "900px" }}>
                                 {/* Card 1 */}
@@ -419,9 +415,6 @@ function MegaMenu({ isOpen, type }: { isOpen: boolean, type: "blog" | "services"
                                             </div>
                                         </div>
                                     </a>
-                                    <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
-                                        What is Technical SEO? A Beginner-Friendly Explanation
-                                    </div>
                                 </div>
 
                                 {/* Card 2 */}
@@ -436,9 +429,6 @@ function MegaMenu({ isOpen, type }: { isOpen: boolean, type: "blog" | "services"
                                             </div>
                                         </div>
                                     </a>
-                                    <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
-                                        What Is On-Page SEO and Why It Matters in 2026
-                                    </div>
                                 </div>
 
                                 {/* Card 3 */}
@@ -453,32 +443,55 @@ function MegaMenu({ isOpen, type }: { isOpen: boolean, type: "blog" | "services"
                                             </div>
                                         </div>
                                     </a>
-                                    <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
-                                        What Are SEO Services and How Do They Work?
-                                    </div>
                                 </div>
                             </div>
                         ) : (
-                            <div style={{ display: "flex", gap: "1.5rem", maxWidth: "900px", overflowX: "auto", paddingBottom: "1.5rem", scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}>
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem", maxWidth: "900px" }}>
                                 {[
-                                    { title: "SEO Services", href: "/services/seo", desc: "Comprehensive search rankings." },
-                                    { title: "Website Design", href: "/services/website-design", desc: "Custom conversion-focused sites." },
-                                    { title: "Social Media Marketing", href: "/services/social-media-optimization", desc: "Audience growth & engagement." },
-                                    { title: "Email Marketing", href: "/services/email-marketing", desc: "Automated nurturing campaigns." },
-                                    { title: "PPC Services", href: "/services/ppc-management", desc: "ROI-driven paid advertising." }
+                                    { title: "SEO Services", href: "/services/seo", desc: "Comprehensive search rankings.", icon: <IconTrending /> },
+                                    { title: "Website Design", href: "/services/website-design", desc: "Custom conversion-focused sites.", icon: <IconLayout /> },
+                                    { title: "Social Media Marketing", href: "/services/social-media-optimization", desc: "Audience growth & engagement.", icon: <IconShare /> },
+                                    { title: "Email Marketing", href: "/services/email-marketing", desc: "Automated nurturing campaigns.", icon: <IconMail /> },
+                                    { title: "PPC Services", href: "/services/ppc-management", desc: "ROI-driven paid advertising.", icon: <IconTarget /> }
                                 ].map((svc, i) => (
-                                    <div key={i} style={{ flex: "0 0 calc(33.333% - 1rem)", minWidth: "220px" }}>
-                                        <a href={svc.href} className="mega-card">
-                                            <div className="mega-card-content">
-                                                <h4 style={{ fontSize: "1.1rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.25rem" }}>
-                                                    {svc.title}
-                                                </h4>
-                                            </div>
-                                        </a>
-                                        <div style={{ fontSize: "0.85rem", color: "#444", fontWeight: 500, marginTop: "1rem", lineHeight: 1.5, paddingRight: "1rem" }}>
-                                            {svc.desc}
+                                    <a key={i} href={svc.href} style={{
+                                        display: "flex", alignItems: "flex-start", gap: "1rem",
+                                        padding: "1rem", borderRadius: "12px",
+                                        background: "rgba(255,255,255,0.6)",
+                                        border: "1px solid rgba(249,115,22,0.1)",
+                                        textDecoration: "none", transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                                        boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
+                                        cursor: "pointer"
+                                    }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.transform = "translateY(-2px)";
+                                            e.currentTarget.style.background = "#fff";
+                                            e.currentTarget.style.boxShadow = "0 8px 20px rgba(249,115,22,0.08)";
+                                            e.currentTarget.style.borderColor = "rgba(249,115,22,0.3)";
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.transform = "translateY(0)";
+                                            e.currentTarget.style.background = "rgba(255,255,255,0.6)";
+                                            e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.02)";
+                                            e.currentTarget.style.borderColor = "rgba(249,115,22,0.1)";
+                                        }}
+                                    >
+                                        <div style={{
+                                            width: 40, height: 40, borderRadius: 10,
+                                            background: "rgba(249,115,22,0.1)", color: "var(--color-primary)",
+                                            display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
+                                        }}>
+                                            {svc.icon}
                                         </div>
-                                    </div>
+                                        <div>
+                                            <h4 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#111", marginBottom: "0.25rem" }}>
+                                                {svc.title}
+                                            </h4>
+                                            <div style={{ fontSize: "0.85rem", color: "#555", fontWeight: 500, lineHeight: 1.4 }}>
+                                                {svc.desc}
+                                            </div>
+                                        </div>
+                                    </a>
                                 ))}
                             </div>
                         )}
@@ -636,5 +649,35 @@ const IconBell = () => (
 const IconChevronDown = () => (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="6 9 12 15 18 9" />
+    </svg>
+);
+
+const IconTrending = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" />
+    </svg>
+);
+
+const IconLayout = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><line x1="3" y1="9" x2="21" y2="9" /><line x1="9" y1="21" x2="9" y2="9" />
+    </svg>
+);
+
+const IconShare = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+    </svg>
+);
+
+const IconMail = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
+    </svg>
+);
+
+const IconTarget = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" />
     </svg>
 );
