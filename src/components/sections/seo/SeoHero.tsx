@@ -10,12 +10,10 @@ export default function SeoHero() {
 
     return (
         <section
-            className="section"
+            className="section hero-section"
             style={{
                 background: "linear-gradient(135deg, #111111 0%, #000000 100%)",
                 position: "relative",
-                paddingTop: "12rem",
-                paddingBottom: "8rem",
                 overflow: "hidden",
                 color: "#ffffff"
             }}
@@ -83,6 +81,18 @@ export default function SeoHero() {
                     </Link>
                 </div>
             </div>
+            <style jsx>{`
+                .hero-section {
+                    padding-top: 12rem;
+                    padding-bottom: 8rem;
+                }
+                @media (max-width: 768px) {
+                    .hero-section {
+                        padding-top: 5rem !important;
+                        padding-bottom: 3rem !important;
+                    }
+                }
+            `}</style>
         </section>
     );
 }

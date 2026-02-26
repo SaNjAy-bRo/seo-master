@@ -216,14 +216,6 @@ h6 {
   margin-bottom: 1.25rem;
 }
 
-.section-label::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  background: var(--color-primary);
-  border-radius: 50%;
-}
-
 .section-label-dark {
   background: rgba(249, 115, 22, 0.12);
   border-color: rgba(249, 115, 22, 0.2);

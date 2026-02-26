@@ -168,6 +168,9 @@ export default function Navbar() {
                     {/* Blog */}
                     <MobileNavItem href="#blog" icon={IconBlog} label="Blog" onClick={close} />
 
+                    {/* Services */}
+                    <MobileNavItem href="#services" icon={IconServices} label="Services" onClick={close} />
+
                     {/* Sub-section: Services (SEO group) */}
                     <MobileSubSection accentColor="var(--color-primary)">
                         <MobileNavSubItem href="/services/seo" icon={IconSearch} label="SEO Services" onClick={close} />
@@ -176,9 +179,6 @@ export default function Navbar() {
                         <MobileNavSubItem href="/services/email-marketing" icon={IconSearch} label="Email Marketing" onClick={close} />
                         <MobileNavSubItem href="/services/ppc-management" icon={IconSearch} label="PPC Services" onClick={close} />
                     </MobileSubSection>
-
-                    {/* Services */}
-                    <MobileNavItem href="#services" icon={IconServices} label="Services" onClick={close} />
 
                     {/* Sub-section: More Services */}
                     <MobileSubSection accentColor="var(--color-primary)">
