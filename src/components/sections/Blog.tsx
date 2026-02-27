@@ -1,33 +1,8 @@
 "use client";
 
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-
-const blogPosts = [
-    {
-        title: "What Is Technical SEO? A Beginner-Friendly Guide",
-        excerpt: "Learn the fundamentals of technical SEO and how fixing site architecture, speed, and crawlability can dramatically improve your rankings.",
-        date: "Feb 18, 2026",
-        category: "Technical SEO",
-        readTime: "5 min read",
-        color: "#F97316",
-    },
-    {
-        title: "What Is On-Page SEO and Why It Matters in 2026",
-        excerpt: "Discover the essential on-page optimization techniques that search engines prioritize in 2026 and how to implement them effectively.",
-        date: "Feb 18, 2026",
-        category: "On-Page SEO",
-        readTime: "4 min read",
-        color: "#3B82F6",
-    },
-    {
-        title: "What Are SEO Services and How Do They Work?",
-        excerpt: "A comprehensive breakdown of modern SEO services, what to expect from an agency, and how to measure the ROI of your investment.",
-        date: "Feb 4, 2026",
-        category: "SEO Basics",
-        readTime: "6 min read",
-        color: "#22C55E",
-    },
-];
+import { blogPosts } from "@/data/blogData";
+import Link from "next/link";
 
 export default function Blog() {
     const header = useScrollReveal();
@@ -49,16 +24,16 @@ export default function Blog() {
                             Stay updated with our latest insights, tips, and industry trends.
                         </p>
                     </div>
-                    <a href="#" className="btn-secondary" style={{ flexShrink: 0 }}>
+                    <Link href="/blog" className="btn-secondary" style={{ flexShrink: 0 }}>
                         View All Blogs
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-                    </a>
+                    </Link>
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: "1.5rem" }} className="blog-grid">
-                    {blogPosts.map((post, i) => (
+                    {blogPosts.slice(0, 3).map((post, i) => (
                         <article
-                            key={post.title}
+                            key={post.slug}
                             ref={cardRefs[i].ref}
                             className={`card reveal reveal-up ${cardRefs[i].isVisible ? "visible" : ""}`}
                             style={{ overflow: "hidden", background: "#fff" }}
@@ -83,15 +58,15 @@ export default function Blog() {
                                 </div>
                                 <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "0.75rem", lineHeight: 1.4 }}>{post.title}</h3>
                                 <p style={{ color: "var(--color-body)", fontSize: "0.875rem", lineHeight: 1.7, marginBottom: "1rem" }}>{post.excerpt}</p>
-                                <a
-                                    href="#"
+                                <Link
+                                    href={`/blog/${post.slug}`}
                                     style={{ color: post.color, textDecoration: "none", fontSize: "0.875rem", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "0.375rem", transition: "gap 0.2s" }}
                                     onMouseEnter={(e) => (e.currentTarget.style.gap = "0.75rem")}
                                     onMouseLeave={(e) => (e.currentTarget.style.gap = "0.375rem")}
                                 >
                                     Read Article
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-                                </a>
+                                </Link>
                             </div>
                         </article>
                     ))}
